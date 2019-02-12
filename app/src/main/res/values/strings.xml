@@ -4,5 +4,7 @@
     <string name="json_mesas">https://api.sheety.co/65f3d6b4-bf1c-4780-a503-25c4b11b48dc</string>
     <string name="partidos">Listado de Partidos</string>
     <string name="mesas">Listado de Mesas</string>
+    <string name="coches">listado de coches</string>
     <string name="infoFortuna">Información Fortuna</string>
+
 </resources>

@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.ProxyFileDescriptorCallback
 import android.view.View
-import android.widget.Button
-import android.widget.ListView
-import android.widget.ProgressBar
+import android.widget.*
+import com.getbase.floatingactionbutton.FloatingActionButton
+import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.google.gson.Gson
 
 import com.google.gson.reflect.TypeToken
@@ -19,8 +19,12 @@ import java.io.IOException
 class MainActivity : AppCompatActivity() {
     lateinit var progress:ProgressBar
     lateinit var listView_details: ListView
-    lateinit var btnPartidos: Button
-    lateinit var btnMesas: Button
+    lateinit var btnPartidos: FloatingActionButton
+    lateinit var btnMesas: FloatingActionButton
+    lateinit var btnCoches: FloatingActionButton
+    lateinit var btnMenu: FloatingActionsMenu
+    lateinit var tvSelected: TextView
+
 
     var arrayList_details:ArrayList<Partidos> = ArrayList();
     var arrayList_detailsMesas:ArrayList<Mesa> = ArrayList();
@@ -28,9 +32,13 @@ class MainActivity : AppCompatActivity() {
     val client = OkHttpClient()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        btnPartidos = findViewById(R.id.btnPartidos)
-        btnMesas = findViewById(R.id.btnMesas)
+        setContentView(R.layout.activity_main2)
+        btnPartidos = findViewById(R.id.showPartidos)
+        btnMenu = findViewById(R.id.btnActions)
+        btnMesas = findViewById(R.id.showMesas)
+        btnCoches = findViewById(R.id.showCoches)
+        tvSelected = findViewById(R.id.tvSelected)
+        tvSelected.visibility = View.GONE
         listView_details = findViewById<ListView>(R.id.listView) as ListView
         listView_details.visibility = View.GONE
 
@@ -38,13 +46,29 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+        if(btnMenu.isExpanded){
+            listView_details.visibility = View.VISIBLE
+        }
         btnPartidos.setOnClickListener{
+            btnMenu.collapse()
+            tvSelected.text = "Partidos"
+            tvSelected.visibility = View.VISIBLE
             run(getResources().getString(R.string.json_partidos))
+
             listView_details.visibility = View.VISIBLE
         }
         btnMesas.setOnClickListener{
+            btnMenu.collapse()
+            tvSelected.text = "Mesas"
+            tvSelected.visibility = View.VISIBLE
             runMesas(resources.getString(R.string.json_mesas))
             listView_details.visibility = View.VISIBLE
+        }
+        btnCoches.setOnClickListener {
+            tvSelected.text = "Seguimiento Coches"
+            tvSelected.visibility = View.VISIBLE
+            Toast.makeText(this,"Ouch! Esta opción aun no esta lista jeje",Toast.LENGTH_SHORT).show()
         }
         //run(getResources().getString(R.string.json_partidos))
     }
