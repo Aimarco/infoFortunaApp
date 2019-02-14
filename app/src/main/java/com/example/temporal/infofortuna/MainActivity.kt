@@ -14,6 +14,8 @@ import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +29,9 @@ class MainActivity : AppCompatActivity() {
 
 
     var arrayList_details:ArrayList<Partidos> = ArrayList();
-    var arrayList_detailsMesas:ArrayList<Mesa> = ArrayList();
+    var arrayList_detailsMesas:ArrayList<Mesa> = ArrayList()
+    var arrayList_detailsCoches:ArrayList<Coche> = ArrayList()
+    var arrayList_sortedCars:ArrayList<Coche> = ArrayList()
     //OkHttpClient creates connection pool between client and server
     val client = OkHttpClient()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,9 +70,12 @@ class MainActivity : AppCompatActivity() {
             listView_details.visibility = View.VISIBLE
         }
         btnCoches.setOnClickListener {
+            btnMenu.collapse()
             tvSelected.text = "Seguimiento Coches"
             tvSelected.visibility = View.VISIBLE
-            Toast.makeText(this,"Ouch! Esta opción aun no esta lista jeje",Toast.LENGTH_SHORT).show()
+            listView_details.visibility = View.VISIBLE
+            //Toast.makeText(this,"Ouch! Esta opción aun no esta lista jeje",Toast.LENGTH_SHORT).show()
+            runCoches(resources.getString(R.string.json_coches))
         }
         //run(getResources().getString(R.string.json_partidos))
     }
@@ -103,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                         model.resultado = "0-0"
                     }
                     arrayList_details.add(model)
+
                 }
 
                 runOnUiThread {
@@ -150,6 +158,46 @@ class MainActivity : AppCompatActivity() {
                     //stuff that updates ui
                     val obj_adapter : CustomAdapterMesas
                     obj_adapter = CustomAdapterMesas(applicationContext,arrayList_detailsMesas)
+                    listView_details.adapter=obj_adapter
+                }
+                //progress.visibility = View.GONE
+            }
+        })
+    }
+
+
+
+    fun runCoches(url: String) {
+        val request = Request.Builder()
+                .url(url)
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+
+                var str_response = response.body()!!.string()
+                var jsonarray_info = JSONArray(str_response)
+                var i:Int = 0
+                var size:Int = jsonarray_info.length()
+                arrayList_detailsCoches= ArrayList();
+                for (i in 0.. size-1) {
+                    var json_objectdetail:JSONObject=jsonarray_info.getJSONObject(i)
+                    var model:Coche= Coche()
+                    model.nombre=json_objectdetail.getString("nombre")
+                    model.numViajes=json_objectdetail.getInt("contador")
+
+                    arrayList_detailsCoches.add(model)
+                }
+
+                arrayList_sortedCars= ArrayList(arrayList_detailsCoches.sortedWith(compareBy({ it.numViajes })))
+
+                runOnUiThread {
+                    //stuff that updates ui
+                    val obj_adapter : AdapterCoche
+                    obj_adapter = AdapterCoche(applicationContext,arrayList_sortedCars)
                     listView_details.adapter=obj_adapter
                 }
                 //progress.visibility = View.GONE

@@ -2,9 +2,15 @@
     <string name="app_name">InfoFortuna</string>
     <string name="json_partidos">https://api.sheety.co/a0941889-e887-4292-8bc2-1078a15dc6b6</string>
     <string name="json_mesas">https://api.sheety.co/65f3d6b4-bf1c-4780-a503-25c4b11b48dc</string>
+    <string name="json_coches">https://api.sheety.co/f97a5fa8-f432-4bc2-b662-b0f7346b4535</string>
     <string name="partidos">Listado de Partidos</string>
     <string name="mesas">Listado de Mesas</string>
     <string name="coches">listado de coches</string>
     <string name="infoFortuna">Información Fortuna</string>
+    <string name="credits">Developed by Aimar Correyero</string>
+    <string name="version">Versión 1.0</string>
+
+
+
 
 </resources>
