@@ -1,4 +1,4 @@
-package com.example.temporal.infofortuna
+package com.aimar.infofortuna
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,8 +13,9 @@ class CustomAdapter(context: Context,arrayListDetails:ArrayList<Partidos>) : Bas
 
     private val layoutInflater: LayoutInflater
     private val arrayListDetails:ArrayList<Partidos>
-    private val itemcolor1 : Int = context.resources.getColor(R.color.itemColor1)
-    private val itemcolor2 : Int = context.resources.getColor(R.color.itemColor2)
+    private val itemcolorWin : Int = context.resources.getColor(R.color.itemColorWin)
+    private val itemcolorLose : Int = context.resources.getColor(R.color.itemColorLose)
+    private val itemcolorDraw : Int = context.resources.getColor(R.color.white)
 
     init {
         this.layoutInflater = LayoutInflater.from(context)
@@ -49,6 +50,16 @@ class CustomAdapter(context: Context,arrayListDetails:ArrayList<Partidos>) : Bas
         listRowHolder.tvEquipo2.text = arrayListDetails.get(position).equipo2
         listRowHolder.tvFechaPartido.text = arrayListDetails.get(position).fechaPartido
         listRowHolder.tvResultado.text = arrayListDetails.get(position).resultado
+
+
+        if(arrayListDetails.get(position).resultado2.contains("V",true)){
+            listRowHolder.layoutR2.setBackgroundColor(itemcolorWin)
+
+        }else if(arrayListDetails.get(position).resultado2.contains("P",true)){
+            listRowHolder.layoutR2.setBackgroundColor(itemcolorLose)
+        }else{
+            listRowHolder.layoutR2.setBackgroundColor(itemcolorDraw)
+        }
        /* if(position%2 == 0){
             listRowHolder.layout.setBackgroundColor(itemcolor1)
         }else
@@ -63,6 +74,7 @@ private class ListRowHolder(row: View?) {
     public val tvFechaPartido: TextView
     public val tvResultado: TextView
     public val layout: RelativeLayout
+    public val layoutR2: LinearLayout
 
     init {
         this.tvEquipo1 = row?.findViewById<TextView>(R.id.tvEquipo1) as TextView
@@ -70,5 +82,6 @@ private class ListRowHolder(row: View?) {
         this.tvFechaPartido = row?.findViewById<TextView>(R.id.tvFechaPartido) as TextView
         this.tvResultado= row?.findViewById<TextView>(R.id.tvResultado) as TextView
         this.layout = row?.findViewById<RelativeLayout>(R.id.linearLayout) as RelativeLayout
+        this.layoutR2 = row?.findViewById<LinearLayout>(R.id.resultMarker) as LinearLayout
     }
 }

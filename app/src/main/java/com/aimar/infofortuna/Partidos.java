@@ -1,10 +1,10 @@
-package com.example.temporal.infofortuna;
+package com.aimar.infofortuna;
 
 import java.util.Date;
 
 public class Partidos {
     private String fechaPartido;
-    private String equipo1,equipo2,resultado;
+    private String equipo1,equipo2,resultado,category,resultado2;
 
 
     public Partidos(){}
@@ -45,5 +45,21 @@ public class Partidos {
 
     public void setResultado(String resultado) {
         this.resultado = resultado;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getResultado2() {
+        return resultado2;
+    }
+
+    public void setResultado2(String resultado2) {
+        this.resultado2 = resultado2;
     }
 }

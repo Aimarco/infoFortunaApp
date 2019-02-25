@@ -5,9 +5,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg"
+    android:background="@drawable/fondobola"
 
     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/catgButtons"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/tvSelected"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnEscolar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/btnColors"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:text="@string/escolar" />
+        <Button
+            android:id="@+id/btnCadetes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/btnColors"
+            android:background="@drawable/rounded_button"
+            android:text="@string/cadete" />
+
+        <Button
+            android:id="@+id/btnJuveniles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/btnColors"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:text="@string/juvenil" />
+
+        <Button
+            android:id="@+id/btnSenior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/btnColors"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:text="@string/senior" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvTitle"
@@ -16,9 +69,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="25dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/infoFortuna"
-        android:textColor="#FFFFFF"
-        android:textSize="35dp" />
+        android:textColor="#000000"
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/tvSelected"
@@ -31,23 +85,22 @@
         android:layout_marginLeft="14dp"
         android:layout_marginTop="96dp"
         android:text="Seleccion"
-        android:textColor="#FFFFFF"
-        android:textSize="30dp" />
+        android:textColor="#000000"
+        android:textSize="25dp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp">
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/catgButtons"
+        android:layout_marginTop="55dp"
+        >
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="14dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
             tools:layout_editor_absoluteX="0dp">
 
         </ListView>
@@ -66,7 +119,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         fab:fab_addButtonColorNormal="@color/colorAccent"
-        fab:fab_addButtonColorPressed="@color/itemColor2"
         fab:fab_addButtonPlusIconColor="@color/white"
 
         fab:fab_labelStyle="@style/menu_labels_style">
@@ -97,7 +149,16 @@
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_icon="@drawable/car"
             fab:fab_title="@string/coches" />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/showClasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/clasi"
+            fab:fab_title="@string/clasi" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 
 
 </RelativeLayout>

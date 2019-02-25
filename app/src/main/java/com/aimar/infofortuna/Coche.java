@@ -1,4 +1,4 @@
-package com.example.temporal.infofortuna;
+package com.aimar.infofortuna;
 
 public class Coche {
     private String Nombre;

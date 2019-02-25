@@ -1,4 +1,4 @@
-package com.example.temporal.infofortuna
+package com.aimar.infofortuna
 
 import android.support.v4.content.ContextCompat.startActivity
 import android.content.Intent

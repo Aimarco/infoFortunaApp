@@ -1,4 +1,4 @@
-package com.example.temporal.infofortuna
+package com.aimar.infofortuna
 
 
 import android.app.Activity
@@ -16,8 +16,6 @@ class AdapterCoche(context: Context, arrayListDetails:ArrayList<Coche>) : BaseAd
 
     private val layoutInflater: LayoutInflater
     private val arrayListDetails:ArrayList<Coche>
-    private val itemcolor1 : Drawable = context.resources.getDrawable(R.drawable.background_color_fortuna)
-    private val itemcolor2 : Int = context.resources.getColor(R.color.itemColor2)
     private val highLightColor : Int = context.resources.getColor(R.color.highLightColor)
     private val txtColorBlack : Int = context.resources.getColor(R.color.black_semi_transparent)
     init {

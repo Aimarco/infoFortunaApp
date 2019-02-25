@@ -1,4 +1,4 @@
-package com.example.temporal.infofortuna;
+package com.aimar.infofortuna;
 
 public class Mesa {
     private String fecha,catg,mesa1,mesa2,mesa3,hora;

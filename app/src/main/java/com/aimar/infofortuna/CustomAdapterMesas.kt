@@ -1,4 +1,4 @@
-package com.example.temporal.infofortuna
+package com.aimar.infofortuna
 
 import android.app.Activity
 import android.content.Context
@@ -14,8 +14,6 @@ class CustomAdapterMesas(context: Context, arrayListDetails:ArrayList<Mesa>) : B
 
     private val layoutInflater: LayoutInflater
     private val arrayListDetails:ArrayList<Mesa>
-    private val itemcolor1 : Drawable = context.resources.getDrawable(R.drawable.background_color_fortuna)
-    private val itemcolor2 : Int = context.resources.getColor(R.color.itemColor2)
     init {
         this.layoutInflater = LayoutInflater.from(context)
         this.arrayListDetails=arrayListDetails
