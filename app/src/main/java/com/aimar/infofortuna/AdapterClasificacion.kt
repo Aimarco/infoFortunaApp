@@ -37,6 +37,7 @@ class AdapterClasificacion(context: Context, arrayListDetails:ArrayList<Clasific
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+        println("getView"+ arrayListDetails.get(position).equipo)
         val view: View?
         val listRowHolder: ListRowHolderClasi
         if (convertView == null) {
@@ -50,12 +51,12 @@ class AdapterClasificacion(context: Context, arrayListDetails:ArrayList<Clasific
         listRowHolder.tvPosicion.text = arrayListDetails.get(position).pos
         listRowHolder.tvEquipo.text = arrayListDetails.get(position).equipo
         listRowHolder.tvPuntos.text = arrayListDetails.get(position).puntos.toString()
-        /*if(listRowHolder.tvEquipo.text.contains("Fortuna",true)){
-            println(listRowHolder.tvEquipo.text)
+        if(arrayListDetails.get(position).destacado.equals("si",true)){
+            println(listRowHolder.tvEquipo.text.toString() +""+ position)
             listRowHolder.tvEquipo.setTextColor(highLightColor)
             listRowHolder.tvPosicion.setTextColor(highLightColor)
             listRowHolder.tvPuntos.setTextColor(highLightColor)
-        }*/
+        }
 /*        if(arrayListDetails.get(position).equipo.toString().equals("CD Fortuna KE",true)){
 
         }*/

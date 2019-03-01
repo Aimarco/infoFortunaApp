@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Partidos {
     private String fechaPartido;
-    private String equipo1,equipo2,resultado,category,resultado2;
+    private String equipo1,equipo2,resultado,category,resultado2,hora;
 
 
     public Partidos(){}
@@ -61,5 +61,13 @@ public class Partidos {
 
     public void setResultado2(String resultado2) {
         this.resultado2 = resultado2;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 }

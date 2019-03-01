@@ -4,7 +4,7 @@ public class Clasificacion {
 
     public Clasificacion(){}
 
-    private String pos,equipo,puntos,category;
+    private String pos,equipo,puntos,category,destacado;
 
     public String getPos() {
         return pos;
@@ -36,5 +36,13 @@ public class Clasificacion {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getDestacado() {
+        return destacado;
+    }
+
+    public void setDestacado(String destacado) {
+        this.destacado = destacado;
     }
 }

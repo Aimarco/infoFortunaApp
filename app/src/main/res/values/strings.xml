@@ -4,17 +4,26 @@
     <string name="json_mesas">https://api.sheety.co/65f3d6b4-bf1c-4780-a503-25c4b11b48dc</string>
     <string name="json_coches">https://api.sheety.co/f97a5fa8-f432-4bc2-b662-b0f7346b4535</string>
     <string name="json_clasificacion">https://api.sheety.co/c6a21f67-62d6-4835-baf8-405a1ff06894</string>
+    <string name="idHojaPartidos">1Wn7wFyNHpXn-Yl97TNPB8oT8A8dOhJ0m2hiobc9hA_M</string>
+    <string name="idHojaMesas">1z5SlCID9PG4OTDIFCUHOiV6LVCzlNqccEYmCofMqhkM</string>
+    <string name="idHojaCoches">1Xe07sdAE19t4pqpPxkFTVY7gDWfviUdgzYHkP3eVz6k</string>
+    <string name="idHojaClasificacion">1ckh5zcPcR5h6Nwz9e-IBjEIBQ04fS5fJhPDayvbuGDQ</string>
     <string name="partidos">Listado de Partidos</string>
     <string name="mesas">Listado de Mesas</string>
     <string name="coches">listado de coches</string>
     <string name="infoFortuna">Información Fortuna Waterpolo</string>
     <string name="credits">Developed by Aimar Correyero</string>
-    <string name="version">Versión 2.0</string>
+    <string name="version">Versión 2.1</string>
     <string name="cadete">Cadete</string>
     <string name="juvenil">Juvenil</string>
     <string name="senior">Senior</string>
     <string name="clasi">Clasificación</string>
     <string name="escolar">Escolar</string>
+    <string name="edtLista">Editar Listado</string>
+    <string name="noCatgSelected">Debes seleccionar una opcion entre las 4 posibles primero</string>
+    <string name="login">Iniciar sesion</string>
+    <string name="guest">Seguir como invitado</string>
+    <string name="usernameDesc">Nombre de usuario:</string>
 
 
 

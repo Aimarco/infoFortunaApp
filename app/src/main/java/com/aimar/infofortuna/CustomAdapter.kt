@@ -50,6 +50,7 @@ class CustomAdapter(context: Context,arrayListDetails:ArrayList<Partidos>) : Bas
         listRowHolder.tvEquipo2.text = arrayListDetails.get(position).equipo2
         listRowHolder.tvFechaPartido.text = arrayListDetails.get(position).fechaPartido
         listRowHolder.tvResultado.text = arrayListDetails.get(position).resultado
+        listRowHolder.tvHora.text = arrayListDetails.get(position).hora
 
 
         if(arrayListDetails.get(position).resultado2.contains("V",true)){
@@ -73,6 +74,7 @@ private class ListRowHolder(row: View?) {
     public val tvEquipo2: TextView
     public val tvFechaPartido: TextView
     public val tvResultado: TextView
+    public val tvHora: TextView
     public val layout: RelativeLayout
     public val layoutR2: LinearLayout
 
@@ -81,6 +83,7 @@ private class ListRowHolder(row: View?) {
         this.tvEquipo2 = row?.findViewById<TextView>(R.id.tvEquipo2) as TextView
         this.tvFechaPartido = row?.findViewById<TextView>(R.id.tvFechaPartido) as TextView
         this.tvResultado= row?.findViewById<TextView>(R.id.tvResultado) as TextView
+        this.tvHora= row?.findViewById<TextView>(R.id.tvHora) as TextView
         this.layout = row?.findViewById<RelativeLayout>(R.id.linearLayout) as RelativeLayout
         this.layoutR2 = row?.findViewById<LinearLayout>(R.id.resultMarker) as LinearLayout
     }

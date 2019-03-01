@@ -9,6 +9,20 @@
     android:padding="5dp"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tvHora"
+        android:layout_width="97dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/resultMarker"
+        android:layout_marginEnd="89dp"
+        android:layout_marginRight="89dp"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:text="15:00" />
+
     <LinearLayout
         android:id="@+id/resultMarker"
         android:layout_width="10dp"
@@ -41,6 +55,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:text="FechaPartido"
+        android:textSize="25sp"
         android:layout_marginTop="35dp">
 
         <TextView
