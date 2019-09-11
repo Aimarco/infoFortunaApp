@@ -19,6 +19,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import android.content.Intent
 import android.net.Uri
+import android.support.v7.widget.Toolbar
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnCadetes: Button
     lateinit var btnJuveniles: Button
     lateinit var btnEditar: FloatingActionButton
+    lateinit var toolbar: Toolbar
 
 
     lateinit var btnMenu: FloatingActionsMenu
@@ -68,6 +70,8 @@ class MainActivity : AppCompatActivity() {
         listView_details = findViewById<ListView>(R.id.listView) as ListView
         listView_details.visibility = View.GONE
 
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
 
 

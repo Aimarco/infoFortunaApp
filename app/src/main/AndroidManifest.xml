@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/iconov2"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppThemeToolbar">
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
