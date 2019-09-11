@@ -8,7 +8,6 @@ import android.widget.*
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.google.gson.Gson
-
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main2.*
 import okhttp3.*
@@ -20,26 +19,39 @@ import kotlin.collections.ArrayList
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.Toolbar
+import android.support.v4.view.GravityCompat
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.Menu
+import android.view.MenuItem
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.support.design.widget.NavigationView
+import android.support.v4.widget.DrawerLayout
+import android.support.v4.app.SupportActivity
+import android.support.v4.app.SupportActivity.ExtraData
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
+import android.support.v7.app.ActionBarDrawerToggle
+import com.aimar.infofortuna.fragment.ClasificacionFragment
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
     lateinit var progress:ProgressBar
     lateinit var listView_details: ListView
     lateinit var btnPartidos: FloatingActionButton
     lateinit var btnMesas: FloatingActionButton
     lateinit var btnCoches: FloatingActionButton
     lateinit var btnClasi: FloatingActionButton
-    lateinit var btnEscolar: Button
-    lateinit var btnSenior: Button
-    lateinit var btnCadetes: Button
-    lateinit var btnJuveniles: Button
     lateinit var btnEditar: FloatingActionButton
     lateinit var toolbar: Toolbar
+    lateinit var drawerLayout:DrawerLayout
+    lateinit var drawerTitle:String
 
 
     lateinit var btnMenu: FloatingActionsMenu
-    lateinit var tvSelected: TextView
-    lateinit var catgButtons : LinearLayout
 
     var arrayList_details:ArrayList<Partidos> = ArrayList();
     var arrayList_clasif:ArrayList<Clasificacion> = ArrayList();
@@ -55,26 +67,37 @@ class MainActivity : AppCompatActivity() {
         btnMenu = findViewById(R.id.btnActions)
         btnMesas = findViewById(R.id.showMesas)
         btnCoches = findViewById(R.id.showCoches)
-        btnCadetes = findViewById(R.id.btnCadetes)
-        btnJuveniles = findViewById(R.id.btnJuveniles)
-        btnSenior = findViewById(R.id.btnSenior)
-        btnEscolar = findViewById(R.id.btnEscolar)
-        catgButtons = findViewById(R.id.catgButtons)
         btnEditar = findViewById(R.id.btnEditar)
 
         btnClasi = findViewById(R.id.showClasi)
-        catgButtons.visibility = View.GONE
-
-        tvSelected = findViewById(R.id.tvSelected)
-        tvSelected.visibility = View.GONE
         listView_details = findViewById<ListView>(R.id.listView) as ListView
         listView_details.visibility = View.GONE
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        // Initialize the action bar drawer toggle instance
+        val drawerToggle:ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+                this,
+                drawer_layout,
+                toolbar,
+                R.string.drawer_open,
+                R.string.drawer_close
+        ){
+            override fun onDrawerClosed(view:View){
+                super.onDrawerClosed(view)
+                //toast("Drawer closed")
+            }
 
-
+            override fun onDrawerOpened(drawerView: View){
+                super.onDrawerOpened(drawerView)
+                //toast("Drawer opened")
+            }
+        }
+        drawerToggle.isDrawerIndicatorEnabled = true
+        drawer_layout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+        navview.setNavigationItemSelectedListener(this)
 
 
         if(btnMenu.isExpanded){
@@ -83,100 +106,76 @@ class MainActivity : AppCompatActivity() {
 
         btnPartidos.setOnClickListener{
             btnMenu.collapse()
-            tvSelected.text = "Partidos"
-            tvSelected.visibility = View.VISIBLE
-            catgButtons.visibility = View.VISIBLE
             listView_details.visibility = View.GONE
         }
         btnMesas.setOnClickListener{
             btnMenu.collapse()
-            tvSelected.text = "Mesas"
-            catgButtons.visibility = View.INVISIBLE
-            tvSelected.visibility = View.VISIBLE
             runMesas(resources.getString(R.string.json_mesas))
             listView_details.visibility = View.VISIBLE
         }
         btnCoches.setOnClickListener {
             btnMenu.collapse()
-            tvSelected.text = "Seguimiento Coches"
-            catgButtons.visibility = View.INVISIBLE
-            tvSelected.visibility = View.VISIBLE
             listView_details.visibility = View.VISIBLE
             //Toast.makeText(this,"Ouch! Esta opción aun no esta lista jeje",Toast.LENGTH_SHORT).show()
             runCoches(resources.getString(R.string.json_coches))
         }
         btnClasi.setOnClickListener {
             btnMenu.collapse()
-            tvSelected.text = "Clasificación"
-            tvSelected.visibility = View.VISIBLE
-            catgButtons.visibility = View.VISIBLE
             listView_details.visibility = View.GONE
             //Toast.makeText(this,"Ouch! Esta opción aun no esta lista jeje",Toast.LENGTH_SHORT).show()
         }
 
-        btnCadetes.setOnClickListener{
-            tvSelected.visibility = View.VISIBLE
-            if(tvSelected.text.contains("parti",true)) {
-                run(getResources().getString(R.string.json_partidos), "Cadete")
-            }else if(tvSelected.text.contains("clasif",true)){
-                println("Clasificacion cadetes")
-                runClasificacion(getResources().getString(R.string.json_clasificacion), "Cadete")
-            }
-            listView_details.visibility = View.VISIBLE
-        }
-        btnJuveniles.setOnClickListener{
-            tvSelected.visibility = View.VISIBLE
-            if(tvSelected.text.contains("parti",true)) {
-                run(getResources().getString(R.string.json_partidos), "Juvenil")
-            }else if(tvSelected.text.contains("clasif",true)) {
-                println("Clasificacion Juvenil")
-                runClasificacion(getResources().getString(R.string.json_clasificacion), "Juvenil")
 
-            }
-            listView_details.visibility = View.VISIBLE
-        }
-        btnSenior.setOnClickListener{
-            tvSelected.visibility = View.VISIBLE
-            if(tvSelected.text.contains("parti",true)) {
-                run(getResources().getString(R.string.json_partidos), "Senior")
-            }else if(tvSelected.text.contains("clasif",true)) {
-                println("Clasificacion Senior")
-                runClasificacion(getResources().getString(R.string.json_clasificacion), "Senior")
-            }
-            listView_details.visibility = View.VISIBLE
-        }
-        btnEscolar.setOnClickListener{
-            tvSelected.visibility = View.VISIBLE
-            if(tvSelected.text.contains("parti",true)) {
-                run(getResources().getString(R.string.json_partidos), "Escolar")
-            }else if(tvSelected.text.contains("clasif",true)) {
-                println("Clasificacion Escolar")
-                runClasificacion(getResources().getString(R.string.json_clasificacion), "Escolar")
-            }
-            listView_details.visibility = View.VISIBLE
-        }
-        btnEditar.setOnClickListener {
-            if(tvSelected.text.contains("parti",true)){
-                val id: String = getResources().getString(R.string.idHojaPartidos)
-                openSpreadSheet(id)
-            }else if(tvSelected.text.contains("mesa",true)){
-                val id: String = getResources().getString(R.string.idHojaMesas)
-                openSpreadSheet(id)
-            }else if(tvSelected.text.contains("coche",true)){
-                val id: String = getResources().getString(R.string.idHojaCoches)
-                openSpreadSheet(id)
-            }else if(tvSelected.text.contains("clasi",true)){
-                val id: String = getResources().getString(R.string.idHojaClasificacion)
-                openSpreadSheet(id)
-            }else{
-                Toast.makeText(this,getResources().getString(R.string.noCatgSelected),Toast.LENGTH_SHORT).show()
-            }
-
-        }
 
 
         //run(getResources().getString(R.string.json_partidos))
     }
+
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.menu_partidos_escolar -> {
+                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_partidos_cadete -> {
+                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_partidos_juvenil -> {
+                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_partidos_senior -> {
+                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_clasi_escolar -> {
+                Toast.makeText(this, "Publication", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_clasi_cadete -> {
+                Toast.makeText(this, "Android Store", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_clasi_juvenil -> {
+                Toast.makeText(this, "Newsletter", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_clasi_senior -> {
+                toolbar.title = getString(R.string.mesas)
+                navigateToFragment(ClasificacionFragment.newInstance("Senior"))
+            }
+            R.id.menu_coches -> {
+                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+            }
+            R.id.menu_mesas -> {
+            }
+        }
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    private fun navigateToFragment(fragmentToNavigate: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.drawer_layout, fragmentToNavigate)
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+
 
     fun run(url: String,catg: String) {
         val request = Request.Builder()
@@ -218,7 +217,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 runOnUiThread {
-                    tvSelected.text = "Partidos $catg"
+
                     //stuff that updates ui
                     val obj_adapter : CustomAdapter
                     obj_adapter = CustomAdapter(applicationContext,arrayList_details)
@@ -345,7 +344,6 @@ class MainActivity : AppCompatActivity() {
 
                 runOnUiThread {
                     //stuff that updates ui
-                    tvSelected.text = "Clasificación $categ"
                     val obj_adapter : AdapterClasificacion
                     println(arrayList_clasif.size)
                     obj_adapter = AdapterClasificacion(applicationContext,arrayList_clasif)
@@ -361,5 +359,14 @@ class MainActivity : AppCompatActivity() {
         val i = Intent(Intent.ACTION_VIEW)
         i.data = Uri.parse(url)
         startActivity(i)
+    }
+
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

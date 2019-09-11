@@ -2,9 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
             android:id="@+id/menu_partidos"
-            android:icon="@drawable/waterpolo_icon"
+
             android:title="@string/partidos">
-            <menu>
+            <menu
+                android:icon="@drawable/waterpolo_icon"
+                >
                 <item
                     android:id="@+id/menu_partidos_escolar"
                     android:title="@string/escolar"/>
@@ -22,7 +24,6 @@
 
         <item
             android:id="@+id/menu_clasificacion"
-            android:icon="@drawable/clasi"
             android:title="@string/clasi">
             <menu>
                 <item
@@ -40,12 +41,13 @@
             </menu>
         </item>
         <item
-            android:id="@+id/menu_seccion_3"
+            android:id="@+id/menu_coches"
             android:icon="@drawable/car"
             android:title="@string/coches">
         </item>
     <item
-        android:id="@+id/navigation_subheader"
+        android:id="@+id/menu_mesas"
+        android:icon="@drawable/table"
         android:title="@string/mesas">
     </item>
 

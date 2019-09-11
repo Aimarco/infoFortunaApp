@@ -24,6 +24,8 @@
     <string name="login">Iniciar sesion</string>
     <string name="guest">Seguir como invitado</string>
     <string name="usernameDesc">Nombre de usuario:</string>
+    <string name="drawer_open">Abierto</string>
+    <string name="drawer_close">Cerrado</string>
 
 
 
