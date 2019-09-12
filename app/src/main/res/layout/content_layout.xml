@@ -7,54 +7,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondobola"
+    android:background="@color/grey"
     tools:actionBarNavMode="list">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/HeaderBar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:navigationIcon="@drawable/ic_menu"
-        android:elevation="4dp"/>
+
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignTop="@+id/toolbar"
         android:layout_marginTop="12dp">
-
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="364dp"
-            android:layout_height="594dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="14dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginBottom="0dp"
-            tools:layout_editor_absoluteX="0dp">
-
-        </ListView>
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="59dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/playfair_regular"
             android:layout_marginEnd="2dp"
             android:layout_marginBottom="5dp"
-            android:text="@string/infoFortuna"
             android:textColor="#000000"
             android:textSize="30dp" />
 
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingTop="10dp"
+            tools:layout_editor_absoluteX="0dp"></ListView>
+
+
     </RelativeLayout>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/btnActions"
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -64,56 +57,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        fab:fab_addButtonColorNormal="@color/colorAccent"
-        fab:fab_addButtonPlusIconColor="@color/white"
-        fab:fab_labelStyle="@style/menu_labels_style">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnEditar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/lapiz"
-            fab:fab_title="@string/edtLista" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/showPartidos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/waterpolo_icon"
-            fab:fab_title="@string/partidos" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/showMesas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/table"
-            fab:fab_title="@string/mesas" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/showCoches"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/car"
-            fab:fab_title="@string/coches" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/showClasi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/colorAccent"
-            fab:fab_colorPressed="@color/white_pressed"
-            fab:fab_icon="@drawable/clasi"
-            fab:fab_title="@string/clasi" />
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        fab:fab_icon="@drawable/lapiz"
+        fab:fab_title="@string/edtLista"
+        fab:fab_addButtonColorNormal="@color/colorAccent"/>
 
 
 </RelativeLayout>

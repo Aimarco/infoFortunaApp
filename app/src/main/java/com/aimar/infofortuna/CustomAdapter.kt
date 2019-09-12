@@ -54,12 +54,12 @@ class CustomAdapter(context: Context,arrayListDetails:ArrayList<Partidos>) : Bas
 
 
         if(arrayListDetails.get(position).resultado2.contains("V",true)){
-            listRowHolder.layoutR2.setBackgroundColor(itemcolorWin)
+            listRowHolder.layoutR2.setBackgroundResource(R.drawable.gdot)
 
         }else if(arrayListDetails.get(position).resultado2.contains("P",true)){
-            listRowHolder.layoutR2.setBackgroundColor(itemcolorLose)
+            listRowHolder.layoutR2.setBackgroundResource(R.drawable.rdot)
         }else{
-            listRowHolder.layoutR2.setBackgroundColor(itemcolorDraw)
+            listRowHolder.layoutR2.setBackgroundResource(R.drawable.wdot)
         }
        /* if(position%2 == 0){
             listRowHolder.layout.setBackgroundColor(itemcolor1)

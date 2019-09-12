@@ -36,6 +36,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBarDrawerToggle
 import com.aimar.infofortuna.fragment.ClasificacionFragment
+import com.aimar.infofortuna.fragment.CochesFragment
+import com.aimar.infofortuna.fragment.MesasFragment
+import com.aimar.infofortuna.fragment.PartidosFragment
 
 
 class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
@@ -63,15 +66,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-        btnPartidos = findViewById(R.id.showPartidos)
-        btnMenu = findViewById(R.id.btnActions)
-        btnMesas = findViewById(R.id.showMesas)
-        btnCoches = findViewById(R.id.showCoches)
-        btnEditar = findViewById(R.id.btnEditar)
 
-        btnClasi = findViewById(R.id.showClasi)
-        listView_details = findViewById<ListView>(R.id.listView) as ListView
-        listView_details.visibility = View.GONE
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -100,30 +95,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         navview.setNavigationItemSelectedListener(this)
 
 
-        if(btnMenu.isExpanded){
-            listView_details.visibility = View.VISIBLE
-        }
-
-        btnPartidos.setOnClickListener{
-            btnMenu.collapse()
-            listView_details.visibility = View.GONE
-        }
-        btnMesas.setOnClickListener{
-            btnMenu.collapse()
-            runMesas(resources.getString(R.string.json_mesas))
-            listView_details.visibility = View.VISIBLE
-        }
-        btnCoches.setOnClickListener {
-            btnMenu.collapse()
-            listView_details.visibility = View.VISIBLE
-            //Toast.makeText(this,"Ouch! Esta opción aun no esta lista jeje",Toast.LENGTH_SHORT).show()
-            runCoches(resources.getString(R.string.json_coches))
-        }
-        btnClasi.setOnClickListener {
-            btnMenu.collapse()
-            listView_details.visibility = View.GONE
-            //Toast.makeText(this,"Ouch! Esta opción aun no esta lista jeje",Toast.LENGTH_SHORT).show()
-        }
 
 
 
@@ -134,34 +105,44 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.menu_partidos_escolar -> {
-                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                toolbar.title = getString(R.string.partidos)
+                navigateToFragment(PartidosFragment.newInstance("Escolar"))
             }
             R.id.menu_partidos_cadete -> {
-                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                toolbar.title = getString(R.string.partidos)
+                navigateToFragment(PartidosFragment.newInstance("Cadete"))
             }
             R.id.menu_partidos_juvenil -> {
-                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                toolbar.title = getString(R.string.partidos)
+                navigateToFragment(PartidosFragment.newInstance("Juvenil"))
             }
             R.id.menu_partidos_senior -> {
-                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                toolbar.title = getString(R.string.partidos)
+                navigateToFragment(PartidosFragment.newInstance("Senior"))
             }
             R.id.menu_clasi_escolar -> {
-                Toast.makeText(this, "Publication", Toast.LENGTH_SHORT).show()
+                toolbar.title = getString(R.string.clasi)
+                navigateToFragment(ClasificacionFragment.newInstance("Escolar"))
             }
             R.id.menu_clasi_cadete -> {
-                Toast.makeText(this, "Android Store", Toast.LENGTH_SHORT).show()
+                toolbar.title = getString(R.string.clasi)
+                navigateToFragment(ClasificacionFragment.newInstance("Cadete"))
             }
             R.id.menu_clasi_juvenil -> {
-                Toast.makeText(this, "Newsletter", Toast.LENGTH_SHORT).show()
+                toolbar.title = getString(R.string.clasi)
+                navigateToFragment(ClasificacionFragment.newInstance("Juvenil"))
             }
             R.id.menu_clasi_senior -> {
-                toolbar.title = getString(R.string.mesas)
+                toolbar.title = getString(R.string.clasi)
                 navigateToFragment(ClasificacionFragment.newInstance("Senior"))
             }
             R.id.menu_coches -> {
-                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                toolbar.title = getString(R.string.coches)
+                navigateToFragment(CochesFragment.newInstance())
             }
             R.id.menu_mesas -> {
+                toolbar.title = getString(R.string.mesas)
+                navigateToFragment(MesasFragment.newInstance())
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -170,201 +151,19 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
     private fun navigateToFragment(fragmentToNavigate: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.drawer_layout, fragmentToNavigate)
+        fragmentTransaction.replace(R.id.frameLayout, fragmentToNavigate)
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
 
-    fun run(url: String,catg: String) {
-        val request = Request.Builder()
-                .url(url)
-                .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-
-                var str_response = response.body()!!.string()
-                //creating json object
-                //val json_contact:JSONObject = JSONObject(str_response)
-                //creating json array
-                var jsonarray_info = JSONArray(str_response)
-                var i:Int = 0
-                var size:Int = jsonarray_info.length()
-                arrayList_details= ArrayList();
-                for (i in 0.. size-1) {
-                    var json_objectdetail:JSONObject=jsonarray_info.getJSONObject(i)
-                    var model:Partidos= Partidos()
-                    model.equipo1=json_objectdetail.getString("equipo1")
-                    model.equipo2=json_objectdetail.getString("equipo2")
-                    model.fechaPartido=json_objectdetail.getString("fechaPartido")
-                    model.resultado=json_objectdetail.getString("resultado")
-                    model.category=json_objectdetail.getString("categoria")
-                    model.resultado2=json_objectdetail.getString("resultado2")
-                    model.hora=json_objectdetail.getString("hora")
-                    if(model.resultado.equals("null")){
-                        model.resultado = "0-0"
-                    }
-                    if(model.hora.equals("null",true)){
-                        model.hora = "??:??"
-                    }
-                    if(model.category.equals(catg,true))
-                        arrayList_details.add(model)
-
-                }
-
-                runOnUiThread {
-
-                    //stuff that updates ui
-                    val obj_adapter : CustomAdapter
-                    obj_adapter = CustomAdapter(applicationContext,arrayList_details)
-                    listView_details.adapter=obj_adapter
-                }
-                //progress.visibility = View.GONE
-            }
-        })
-    }
-
-    fun runMesas(url: String) {
-        val request = Request.Builder()
-                .url(url)
-                .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-
-                var str_response = response.body()!!.string()
-                var jsonarray_info = JSONArray(str_response)
-                var i:Int = 0
-                var size:Int = jsonarray_info.length()
-                arrayList_detailsMesas= ArrayList();
-                for (i in 0.. size-1) {
-                    var json_objectdetail:JSONObject=jsonarray_info.getJSONObject(i)
-                    var model:Mesa= Mesa()
-                    model.fecha=json_objectdetail.getString("fecha")
-                    model.fecha+="("+json_objectdetail.getString("hora")+")"
-                    model.catg=json_objectdetail.getString("categoria")
-                    model.mesa1=json_objectdetail.getString("mesa1")
-                    model.mesa2=json_objectdetail.getString("mesa2")
-                    model.mesa3=json_objectdetail.getString("mesa3")
-                    model.hora=json_objectdetail.getString("hora")
-
-                    arrayList_detailsMesas.add(model)
-                }
-
-                runOnUiThread {
-                    //stuff that updates ui
-                    val obj_adapter : CustomAdapterMesas
-                    obj_adapter = CustomAdapterMesas(applicationContext,arrayList_detailsMesas)
-                    listView_details.adapter=obj_adapter
-                }
-                //progress.visibility = View.GONE
-            }
-        })
-    }
-
-
-
-    fun runCoches(url: String) {
-        val request = Request.Builder()
-                .url(url)
-                .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-
-                var str_response = response.body()!!.string()
-                var jsonarray_info = JSONArray(str_response)
-                var i:Int = 0
-                var size:Int = jsonarray_info.length()
-                arrayList_detailsCoches= ArrayList();
-                for (i in 0.. size-1) {
-                    var json_objectdetail:JSONObject=jsonarray_info.getJSONObject(i)
-                    var model:Coche= Coche()
-                    model.nombre=json_objectdetail.getString("nombre")
-                    model.numViajes=json_objectdetail.getInt("contador")
-                    arrayList_detailsCoches.add(model)
-                }
-
-                arrayList_sortedCars= ArrayList(arrayList_detailsCoches.sortedWith(compareBy({ it.numViajes })))
-
-                runOnUiThread {
-                    //stuff that updates ui
-                    val obj_adapter : AdapterCoche
-                    obj_adapter = AdapterCoche(applicationContext,arrayList_sortedCars)
-                    listView_details.adapter=obj_adapter
-                }
-                //progress.visibility = View.GONE
-            }
-        })
-    }
-
-    fun runClasificacion(url: String,categ: String) {
-
-        val request = Request.Builder()
-                .url(url)
-                .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-
-                var str_response = response.body()!!.string()
-
-                //creating json object
-                //val json_contact:JSONObject = JSONObject(str_response)
-                //creating json array
-                var jsonarray_info = JSONArray(str_response)
-                var size:Int = jsonarray_info.length()
-                arrayList_clasif= ArrayList()
-
-                for (i in 0.. size-1) {
-                    var json_objectdetail:JSONObject=jsonarray_info.getJSONObject(i)
-                    var model = Clasificacion()
-                    model.category=json_objectdetail.getString("categoria")
-                    if(model.category.equals(categ,true)) {
-                        model.pos=json_objectdetail.getString("pos")
-                        model.equipo=json_objectdetail.getString("equipo")
-                        model.puntos=json_objectdetail.getString("puntos")
-                        model.destacado=json_objectdetail.getString("destacado")
-                        arrayList_clasif.add(model)
-                    }
-                }
-
-                runOnUiThread {
-                    //stuff that updates ui
-                    val obj_adapter : AdapterClasificacion
-                    println(arrayList_clasif.size)
-                    obj_adapter = AdapterClasificacion(applicationContext,arrayList_clasif)
-                    listView_details.adapter=obj_adapter
-                }
-                //progress.visibility = View.GONE
-            }
-        })
-
-    }
-    fun openSpreadSheet(id:String){
-        val url = "https://docs.google.com/spreadsheets/d/$id"
-        val i = Intent(Intent.ACTION_VIEW)
-        i.data = Uri.parse(url)
-        startActivity(i)
-    }
 
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
+            toolbar.title = getString(R.string.home)
         } else {
             super.onBackPressed()
         }

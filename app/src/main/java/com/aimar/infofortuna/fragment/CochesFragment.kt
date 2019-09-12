@@ -7,27 +7,28 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
-import android.widget.TextView
 import com.aimar.infofortuna.*
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
 
-class MesasFragment : Fragment() {
+class CochesFragment : Fragment() {
 
 
     companion object {
         fun newInstance(): Fragment {
-            return MesasFragment()
+            return CochesFragment()
         }
     }
 
     fun newInstance(): Fragment {
 
-        return MesasFragment()
+        return CochesFragment()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +44,12 @@ class MesasFragment : Fragment() {
         txt_title = view.findViewById(R.id.tvTitle)
         btnEditar= view.findViewById(R.id.btnEditar)
         btnEditar.setOnClickListener{
-            openSpreadSheet(getResources().getString(R.string.idHojaMesas))
+            openSpreadSheet(getResources().getString(R.string.idHojaCoches))
         }
-        txt_title.text="Mesas Fortuna "
-        runMesas(resources.getString(R.string.json_mesas))
+        txt_title.text="Listado coches Senior"
+        runCoches(resources.getString(R.string.json_coches))
     }
-    fun runMesas(url: String) {
+    fun runCoches(url: String) {
         val request = Request.Builder()
                 .url(url)
                 .build()
@@ -63,33 +64,32 @@ class MesasFragment : Fragment() {
                 var jsonarray_info = JSONArray(str_response)
                 var i:Int = 0
                 var size:Int = jsonarray_info.length()
-                arrayList_detailsMesas= ArrayList();
+                arrayList_detailsCoches= ArrayList();
                 for (i in 0.. size-1) {
-                    var json_objectdetail: JSONObject =jsonarray_info.getJSONObject(i)
-                    var model: Mesa = Mesa()
-                    model.fecha=json_objectdetail.getString("fecha")
-                    model.fecha+="("+json_objectdetail.getString("hora")+")"
-                    model.catg=json_objectdetail.getString("categoria")
-                    model.mesa1=json_objectdetail.getString("mesa1")
-                    model.mesa2=json_objectdetail.getString("mesa2")
-                    model.mesa3=json_objectdetail.getString("mesa3")
-                    model.hora=json_objectdetail.getString("hora")
+                    var json_objectdetail:JSONObject=jsonarray_info.getJSONObject(i)
+                    var model: Coche = Coche()
+                    model.nombre=json_objectdetail.getString("nombre")
+                    model.numViajes=json_objectdetail.getInt("contador")
+                    arrayList_detailsCoches.add(model)
+                }
 
-                    arrayList_detailsMesas.add(model)
-                }
+                arrayList_sortedCars= ArrayList(arrayList_detailsCoches.sortedWith(compareBy({ it.numViajes })))
+
                 activity!!.runOnUiThread {
-                    val obj_adapter: CustomAdapterMesas
-                    obj_adapter = CustomAdapterMesas(activity!!.applicationContext, arrayList_detailsMesas)
-                    listView_details.adapter = obj_adapter
+                    //stuff that updates ui
+                    val obj_adapter : AdapterCoche
+                    obj_adapter = AdapterCoche(activity!!.applicationContext,arrayList_sortedCars)
+                    listView_details.adapter=obj_adapter
                 }
+                //progress.visibility = View.GONE
             }
         })
     }
-
     fun openSpreadSheet(id:String){
         val url = "https://docs.google.com/spreadsheets/d/$id"
         val i = Intent(Intent.ACTION_VIEW)
         i.data = Uri.parse(url)
         startActivity(i)
     }
+
 }

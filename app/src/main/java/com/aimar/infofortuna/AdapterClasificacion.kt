@@ -48,11 +48,11 @@ class AdapterClasificacion(context: Context, arrayListDetails:ArrayList<Clasific
             view = convertView
             listRowHolder = view.tag as ListRowHolderClasi
         }
-        listRowHolder.tvPosicion.text = arrayListDetails.get(position).pos
-        listRowHolder.tvEquipo.text = arrayListDetails.get(position).equipo
-        listRowHolder.tvPuntos.text = arrayListDetails.get(position).puntos.toString()
-        if(arrayListDetails.get(position).destacado.equals("si",true)){
-            println(listRowHolder.tvEquipo.text.toString() +""+ position)
+        listRowHolder.tvPosicion.text = ""+(position+1)
+        listRowHolder.tvEquipo.text = arrayListDetails[position].equipo
+        listRowHolder.tvPuntos.text = arrayListDetails[position].puntos.toString()
+        if(arrayListDetails[position].equipo.equals("CD Fortuna KE",true)){
+            println("ES DESTACADO? "+arrayListDetails[position].destacado)
             listRowHolder.tvEquipo.setTextColor(highLightColor)
             listRowHolder.tvPosicion.setTextColor(highLightColor)
             listRowHolder.tvPuntos.setTextColor(highLightColor)
