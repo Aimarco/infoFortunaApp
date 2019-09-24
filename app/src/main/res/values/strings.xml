@@ -15,8 +15,9 @@
     <string name="infoFortuna">Información Fortuna Waterpolo</string>
     <string name="credits">Developed by Aimar Correyero</string>
     <string name="version">Versión 3.0</string>
-    <string name="cadete">Cadete</string>
+    <string name="cadete">Cadete Mixto</string>
     <string name="juvenil">Juvenil</string>
+    <string name="juvenilf">Juvenil Femenino</string>
     <string name="senior">Senior</string>
     <string name="clasi">Clasificación</string>
     <string name="escolar">Escolar</string>
@@ -27,6 +28,7 @@
     <string name="usernameDesc">Nombre de usuario:</string>
     <string name="drawer_open">Abierto</string>
     <string name="drawer_close">Cerrado</string>
+    <string name="infoEntrenas">Información de los entrenamientos</string>
 
 
 

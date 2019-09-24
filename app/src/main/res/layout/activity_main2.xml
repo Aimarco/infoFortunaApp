@@ -10,9 +10,13 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
+
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
         <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:local="http://schemas.android.com/apk/res-auto"
@@ -34,7 +38,67 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/infoEntrenas"
+                android:textSize="22dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/playfair_regular"
+                android:layout_gravity="center_horizontal"
+                android:gravity="top"
+                />
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="75dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+
+                >
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/senior"
+                    android:drawableLeft="@drawable/info"
+                    android:drawablePadding="5dp"
+                    android:id="@+id/infoSenior"
+                    android:layout_below="@+id/editText5"
+                    android:layout_alignEnd="@+id/editText5"
+                    android:enabled="true" />
+                <Button
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cadete"
+                    android:drawableLeft="@drawable/info"
+                    android:drawablePadding="5dp"
+                    android:id="@+id/infoCadete"
+                    android:layout_below="@+id/editText5"
+                    android:layout_alignEnd="@+id/editText5"
+                    android:enabled="true" />
+                <Button
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/juvenilf"
+                    android:drawableLeft="@drawable/info"
+                    android:drawablePadding="3dp"
+                    android:id="@+id/infoFemenino"
+                    android:layout_below="@+id/editText5"
+                    android:layout_alignEnd="@+id/editText5"
+                    android:enabled="true" />
+            </android.support.v7.widget.LinearLayoutCompat>
+
+
+
+
+        </FrameLayout>
 
     </android.support.constraint.ConstraintLayout>
 

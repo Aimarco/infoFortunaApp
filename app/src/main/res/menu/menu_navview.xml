@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:fontFamily="@font/playfair_regular"
+        android:id="@+id/menu_home"
+        android:icon="@drawable/home"
+        android:title="@string/home">
+    </item>
         <item
             android:id="@+id/menu_partidos"
             android:fontFamily="@font/playfair_regular"
@@ -10,16 +16,12 @@
                 >
                 <item
                     android:fontFamily="@font/playfair_regular"
-                    android:id="@+id/menu_partidos_escolar"
-                    android:title="@string/escolar"/>
-                <item
-                    android:fontFamily="@font/playfair_regular"
                     android:id="@+id/menu_partidos_cadete"
                     android:title="@string/cadete"/>
                 <item
                     android:fontFamily="@font/playfair_regular"
                     android:id="@+id/menu_partidos_juvenil"
-                    android:title="@string/juvenil"/>
+                    android:title="@string/juvenilf"/>
                 <item
                     android:fontFamily="@font/playfair_regular"
                     android:id="@+id/menu_partidos_senior"
@@ -34,16 +36,12 @@
             <menu>
                 <item
                     android:fontFamily="@font/playfair_regular"
-                    android:id="@+id/menu_clasi_escolar"
-                    android:title="@string/escolar"/>
-                <item
-                    android:fontFamily="@font/playfair_regular"
                     android:id="@+id/menu_clasi_cadete"
                     android:title="@string/cadete"/>
                 <item
                     android:fontFamily="@font/playfair_regular"
                     android:id="@+id/menu_clasi_juvenil"
-                    android:title="@string/juvenil"/>
+                    android:title="@string/juvenilf"/>
                 <item
                     android:fontFamily="@font/playfair_regular"
                     android:id="@+id/menu_clasi_senior"

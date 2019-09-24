@@ -1,9 +1,9 @@
 package com.aimar.infofortuna
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.ProxyFileDescriptorCallback
-import android.view.View
 import android.widget.*
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -22,8 +22,6 @@ import android.support.v7.widget.Toolbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.view.Menu
-import android.view.MenuItem
 import android.support.v4.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.support.design.widget.NavigationView
@@ -32,9 +30,14 @@ import android.support.v4.app.SupportActivity
 import android.support.v4.app.SupportActivity.ExtraData
 import android.support.v4.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Build
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.ActionBarDrawerToggle
+import android.text.Layout
+import android.transition.Slide
+import android.transition.TransitionManager
+import android.view.*
 import com.aimar.infofortuna.fragment.ClasificacionFragment
 import com.aimar.infofortuna.fragment.CochesFragment
 import com.aimar.infofortuna.fragment.MesasFragment
@@ -52,6 +55,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout:DrawerLayout
     lateinit var drawerTitle:String
+    lateinit var seniorInfobtn:Button
 
 
     lateinit var btnMenu: FloatingActionsMenu
@@ -67,7 +71,8 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-
+        seniorInfobtn = findViewById(R.id.infoSenior)
+        seniorInfobtn.setOnClickListener { onButtonShowPopupWindowClick(findViewById(R.id.drawer_layout)) }
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -104,8 +109,8 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.menu_partidos_escolar -> {
-                toolbar.title = getString(R.string.partidos)
+            R.id.menu_home -> {
+                toolbar.title = getString(R.string.home)
                 navigateToFragment(PartidosFragment.newInstance("Escolar"))
             }
             R.id.menu_partidos_cadete -> {
@@ -119,10 +124,6 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
             R.id.menu_partidos_senior -> {
                 toolbar.title = getString(R.string.partidos)
                 navigateToFragment(PartidosFragment.newInstance("Senior"))
-            }
-            R.id.menu_clasi_escolar -> {
-                toolbar.title = getString(R.string.clasi)
-                navigateToFragment(ClasificacionFragment.newInstance("Escolar"))
             }
             R.id.menu_clasi_cadete -> {
                 toolbar.title = getString(R.string.clasi)
@@ -153,7 +154,7 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout, fragmentToNavigate)
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        fragmentTransaction.addToBackStack(null)
+        //fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
@@ -167,5 +168,68 @@ class MainActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         } else {
             super.onBackPressed()
         }
+    }
+
+
+    public fun onButtonShowPopupWindowClick(view:View) {
+
+
+        val inflater:LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        // Inflate a custom view using layout inflater
+        val view = inflater.inflate(R.layout.popup_entrenamientos,null)
+        var drawerLayout:View = findViewById(R.id.drawer_layout)
+        // Initialize a new instance of popup window
+        val popupWindow = PopupWindow(
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+        )
+
+        // Set an elevation for the popup window
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.elevation = 10.0F
+        }
+
+
+        // If API level 23 or higher then execute the code
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // Create a new slide animation for popup window enter transition
+            val slideIn = Slide()
+            slideIn.slideEdge = Gravity.TOP
+            popupWindow.enterTransition = slideIn
+
+            // Slide animation for popup window exit transition
+            val slideOut = Slide()
+            slideOut.slideEdge = Gravity.RIGHT
+            popupWindow.exitTransition = slideOut
+
+        }
+
+        // Get the widgets reference from custom view
+        //val tv = view.findViewById<TextView>(R.id.)
+        //val buttonPopup = view.findViewById<Button>(R.id.button_popup)
+                // Set a click listener for popup's button widget
+        //buttonPopup.setOnClickListener{
+            // Dismiss the popup window
+        //    popupWindow.dismiss()
+      //  }
+
+        // Set a dismiss listener for popup window
+        popupWindow.setOnDismissListener {
+            Toast.makeText(applicationContext,"Popup closed",Toast.LENGTH_SHORT).show()
+        }
+
+
+        // Finally, show the popup window on app
+        TransitionManager.beginDelayedTransition(drawerLayout)
+        popupWindow.showAtLocation(
+                drawerLayout, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
+        )
+
+
     }
 }
